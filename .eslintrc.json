@@ -20,5 +20,7 @@
 		"sourceType": "module"
 	},
 	"rules": {
+		"no-console": 1,
+		"no-import-assign": 2
 	}
 }
