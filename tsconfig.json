@@ -4,7 +4,7 @@
     "module": "commonjs",
     "outDir": "build",
     "rootDir": "src",
-    "types": [],
+    "types": ["jest"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -21,7 +21,8 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "node_moduless",
-    "build"
+    "node_modules",
+    "build",
+    "tests"
   ]
 }
