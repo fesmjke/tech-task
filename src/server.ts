@@ -1,16 +1,17 @@
-import express, {Request, Response} from 'express';
+import { Application } from './application/Application';
+import UserRouter from "./routers/UserRouter";
 import dotenv from 'dotenv';
 
-dotenv.config();
+const main = async () => {
+	dotenv.config();
 
-const application = express();
-const port = process.env.PORT ?? '3000';
+	const port = process.env.PORT ?? '3000';
 
-application.get('/', (req : Request, res : Response) => {
-	console.log(new Date().toLocaleDateString(), ' | ', req.baseUrl);
-	res.send('Express working');
-});
+	const app = new Application(port);
 
-application.listen(port, () => {
-	console.log(`[server]: Server is running at https://localhost:${port}`);
-});
+	app.attachRouter(UserRouter);
+
+	await app.start();
+}
+
+main();
