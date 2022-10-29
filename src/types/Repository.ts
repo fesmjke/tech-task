@@ -5,10 +5,12 @@ interface IWrite<I, T> {
 
 interface IRead<T> {
 	find(): Promise<T[]>;
+	findOne(id: string): Promise<T>;
 }
 
 export abstract class Repository<I, T> implements IWrite<I, T>, IRead<T> {
 	abstract save(object: I): Promise<T>;
 	abstract delete(id: string): Promise<boolean>;
 	abstract find(): Promise<T[]>;
+	abstract findOne(id: string): Promise<T>;
 }
