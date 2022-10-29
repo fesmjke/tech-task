@@ -10,11 +10,11 @@ const userSchema = new Schema<IUser>({
 	},
 	email: {
 		type: String,
-		unique : true
+		unique: true,
 	},
 	homePhone: {
 		type: String,
-		unique : true
+		unique: true,
 	},
 	name: {
 		type: String,
@@ -40,11 +40,7 @@ const userSchema = new Schema<IUser>({
 		default: false,
 	},
 }, {versionKey: false, timestamps: false}).pre('save', function (this: IUser, next) {
-	const user = this;
-
-	user.name = user.firstName + ' ' + user.lastName;
-
-	console.log(`Full name is -> ${user.name}`);
+	this.name = this.firstName + ' ' + this.lastName;
 
 	next();
 });
