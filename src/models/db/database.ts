@@ -1,37 +1,47 @@
-import type { IBaseUser } from "../../types/IUser";
+import type {IBaseUser} from '../../types/IUser';
 
-export interface IDataBaseState{
-    users : IBaseUser[]
-}
+export type IDataBaseState = {
+	users: IBaseUser[];
+};
 
 export class Database {
-    private state : IDataBaseState = {
-        users : [
-            {
-                firstName : "Example 1"
-            },
-            {
-                firstName : "Example 2"
-            },
-            {
-                firstName : "Example 3"
-            }
-        ]
-    }
+	private readonly state: IDataBaseState = {
+		users: [
+			{
+				firstName: 'Example 1',
+			},
+			{
+				firstName: 'Example 2',
+			},
+			{
+				firstName: 'Example 3',
+			},
+		],
+	};
 
-    find = async () => {
-        return this.state.users;
-    }
+	delete = async (firstName: string) => {
+		const index = this.state.users.findIndex(user => user.firstName === firstName);
 
-    create = async (user : Omit<IBaseUser, ''>) => {
-        console.log(`New user created! Welcome, ${user.firstName}!`);
-        
-        this.state.users.push({
-            ...user
-        })
+		if (index !== -1) {
+			this.state.users.splice(index, 1);
 
-        return true;
-    }
+			return true;
+		}
+
+		return false;
+	};
+
+	find = async () => this.state.users;
+
+	create = async (user: Omit<IBaseUser, ''>) => {
+		console.log(`New user created! Welcome, ${user.firstName}!`);
+
+		this.state.users.push({
+			...user,
+		});
+
+		return true;
+	};
 }
 
 export default new Database();

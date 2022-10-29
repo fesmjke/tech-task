@@ -1,31 +1,25 @@
-import type { UserRepository } from "../repositories/UserRepository";
-import {default as userRepository} from "../repositories/UserRepository";
-import { Service } from "../types/Service";
-import { IBaseUser } from "../types/IUser";
+import type {UserRepository} from '../repositories/UserRepository';
+import {default as userRepository} from '../repositories/UserRepository';
+import {Service} from '../types/Service';
+import type {IBaseUser} from '../types/IUser';
 
 export class UserService extends Service {
-    private readonly _userRepository : UserRepository;
-    
-    constructor(repository: UserRepository) {
-        super();
-        this._userRepository = repository;
-    }
+	private readonly _userRepository: UserRepository;
 
-    find = () : Promise<IBaseUser[]> => {
-        return this._userRepository.find();
-    }
+	constructor(repository: UserRepository) {
+		super();
+		this._userRepository = repository;
+	}
 
-    findOne = () : Promise<boolean> => {
-        throw new Error("Method not implemented.");
-    }
+	find = async (): Promise<IBaseUser[]> => this._userRepository.find();
 
-    create = (firstName : IBaseUser['firstName']) : Promise<boolean> => {
-        return this._userRepository.save({firstName});
-    }
-    
-    delete = () : Promise<boolean> => {
-        throw new Error("Method not implemented.");
-    }
+	findOne = async (): Promise<boolean> => {
+		throw new Error('Method not implemented.');
+	};
+
+	create = async (firstName: IBaseUser['firstName']): Promise<boolean> => this._userRepository.save({firstName});
+
+	delete = async (firstName: IBaseUser['firstName']): Promise<boolean> => this._userRepository.delete(firstName);
 }
 
 export default new UserService(userRepository);

@@ -1,23 +1,15 @@
-import Database from "../models/db/database";
-import { IBaseUser } from "../types/IUser";
-import { Repository } from "../types/Repository";
+import Database from '../models/db/database';
+import type {IBaseUser} from '../types/IUser';
+import {Repository} from '../types/Repository';
 
 export class UserRepository extends Repository<IBaseUser> {
-    private readonly _db = Database;
-    
-    save = async (user: IBaseUser): Promise<boolean> => {
-        return new Promise<boolean>(async () => {
-            return await this._db.create(user);
-        })
-    }
+	private readonly _db = Database;
 
-    find = async (): Promise<IBaseUser[]> => {
-        return this._db.find();
-    }
+	save = async (user: IBaseUser): Promise<boolean> => this._db.create(user);
 
-    delete = async (id: string): Promise<boolean> => {
-        throw new Error("Method not implemented.");
-    }
+	find = async (): Promise<IBaseUser[]> => this._db.find();
+
+	delete = async (user: IBaseUser['firstName']): Promise<boolean> => this._db.delete(user);
 }
 
 export default new UserRepository();
