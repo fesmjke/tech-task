@@ -19,7 +19,8 @@
 						"selector": "typeLike",
 						"format": ["StrictPascalCase"]
 					}
-				]
+				],
+				"@typescript-eslint/consistent-type-definitions": 0
 			}
 		}
 	],
