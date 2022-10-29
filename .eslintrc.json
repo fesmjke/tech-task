@@ -12,7 +12,15 @@
 			"files": [
 				"*.ts",
 				"*.tsx"
-			]
+			],
+			"rules": {
+				"@typescript-eslint/naming-convention": [
+					0, {
+						"selector": "typeLike",
+						"format": ["StrictPascalCase"]
+					}
+				]
+			}
 		}
 	],
 	"parserOptions": {
