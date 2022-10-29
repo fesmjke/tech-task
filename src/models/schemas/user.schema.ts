@@ -2,7 +2,6 @@ import type {IUser} from '../../types/IUser';
 import {Schema} from 'mongoose';
 
 const userSchema = new Schema<IUser>({
-	_id: Schema.Types.ObjectId,
 	firstName: {
 		type: String,
 	},
@@ -11,9 +10,11 @@ const userSchema = new Schema<IUser>({
 	},
 	email: {
 		type: String,
+		unique : true
 	},
 	homePhone: {
 		type: String,
+		unique : true
 	},
 	name: {
 		type: String,
