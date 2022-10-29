@@ -24,8 +24,10 @@ class UserController extends Controller {
 		const user: IRequestUser = request.body;
 
 		console.log('incoming user', user.firstName);
+		
+		const created = await this._userService.create(user);
 
-		responce.status(501).send('Not implimented');
+		responce.status(200).send(created);
 	};
 
 	delete = async (request: Request, responce: Response, next: NextFunction) => {
