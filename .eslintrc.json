@@ -20,7 +20,10 @@
 						"format": ["StrictPascalCase"]
 					}
 				],
-				"@typescript-eslint/consistent-type-definitions": 0
+				"@typescript-eslint/consistent-type-definitions": 0,
+				"@typescript-eslint/no-implicit-any-catch": 1,
+				"@typescript-eslint/ban-types": 0,
+				"@typescript-eslint/no-unsafe-assignment": 1
 			}
 		}
 	],
