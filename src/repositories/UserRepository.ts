@@ -7,11 +7,11 @@ export class UserRepository extends Repository<IRequestUser, IUser> {
 
 	save = async (user: IRequestUser): Promise<IUser> => this.UserModel.create(user);
 
-	delete async (id: string): Promise<boolean> {
+	delete = async (id: string): Promise<boolean> => {
 		throw new Error('Method not implemented.');
 	}
 
-	async find(): Promise<IUser[]> {
+	find = async () : Promise<IUser[]> => {
 		throw new Error('Method not implemented.');
 	}
 }
