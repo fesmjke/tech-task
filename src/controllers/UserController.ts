@@ -2,6 +2,7 @@ import type {Request, Response, NextFunction} from 'express';
 import type {UserService} from '../services/UserService';
 import {default as userService} from '../services/UserService';
 import {Controller} from '../types/Controller';
+import type {IRequestUser} from '../types/IUser';
 
 class UserController extends Controller {
 	private readonly _userService: UserService;
@@ -12,34 +13,23 @@ class UserController extends Controller {
 	}
 
 	find = async (request: Request, responce: Response, next: NextFunction) => {
-		const users = await this._userService.find();
-
-		responce.status(200).send(users);
+		try {
+			const users = await this._userService.find();
+		} catch (e) {
+			responce.status(501).send('Not implimented');
+		}
 	};
 
 	create = async (request: Request, responce: Response, next: NextFunction) => {
-		const {firstName} = request.body;
+		const user: IRequestUser = request.body;
 
-		if (firstName === undefined) {
-			responce.status(500).send('Missing property in body : firstName');
-			next();
-			return;
-		}
+		console.log('incoming user', user.firstName);
 
-		try {
-			const result = await this._userService.create(firstName);
-			responce.status(200).send(result);
-		} catch (e: unknown) {
-			responce.status(500).send('');
-		}
+		responce.status(501).send('Not implimented');
 	};
 
 	delete = async (request: Request, responce: Response, next: NextFunction) => {
-		const {id} = request.params;
-
-		const result = await this._userService.delete(id);
-
-		responce.status(200).send(result);
+		responce.status(501).send('Not implimented');
 	};
 }
 
