@@ -13,13 +13,39 @@ export class UserService extends Service {
 
 	find = async (): Promise<IUser[]> => this._userRepository.find();
 
-	findOne = async (): Promise<IUser> => {
-		throw new Error('Method not implemented.');
+	findOne = async (id: string): Promise<IUser> => this._userRepository.findOne(id);
+
+	create = async (user: IRequestUser): Promise<IUser> => {
+		const {email, homePhone} = user;
+
+		if (email) {
+			const emailSearch = await this._userRepository.findByEmail(email);
+
+			if (emailSearch) {
+				throw new Error(`Cannot create new user, because user with email ${email} already exists!`);
+			}
+		}
+
+		if (homePhone) {
+			const phoneSearch = await this._userRepository.findByPhone(homePhone);
+
+			if (phoneSearch) {
+				throw new Error(`Cannot create new user, because user with phone ${homePhone} already exists!`);
+			}
+		}
+
+		return this._userRepository.save(user);
 	};
 
-	create = async (user: IRequestUser): Promise<IUser> => this._userRepository.save(user);
+	delete = async (id: string): Promise<boolean> => {
+		try {
+			await this.findOne(id);
+		} catch (e) {
+			throw e;
+		}
 
-	delete = async (id: string): Promise<boolean> => this._userRepository.delete(id);
+		return this._userRepository.delete(id);
+	};
 }
 
 export default new UserService(userRepository);
