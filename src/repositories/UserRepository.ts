@@ -7,13 +7,15 @@ export class UserRepository extends Repository<IRequestUser, IUser> {
 
 	save = async (user: IRequestUser): Promise<IUser> => this.UserModel.create(user);
 
-	delete = async (id: string): Promise<boolean> => {
-		throw new Error('Method not implemented.');
-	}
+	delete = async (id: string): Promise<boolean> => this.UserModel.delete(id);
 
-	find = async () : Promise<IUser[]> => {
-		throw new Error('Method not implemented.');
-	}
+	find = async (): Promise<IUser[]> => this.UserModel.find();
+
+	findOne = async (id: string): Promise<IUser> => this.UserModel.findOne(id);
+
+	findByEmail = async (email: string): Promise<IUser | null> => this.UserModel.findByEmail(email);
+
+	findByPhone = async (phone: string): Promise<IUser | null> => this.UserModel.findByPhone(phone);
 }
 
 export default new UserRepository();
