@@ -10,17 +10,28 @@ class UserModel {
 		this.User = model<IUser>('User', userSchema);
 	}
 
-	create = async (user: IRequestUser) => {
-		console.log('USER MODEL', user);
-		return this.User.create(user);
+	create = async (user: IRequestUser) => this.User.create(user);
+
+	findOne = async (id: string) => {
+		const result = await this.User.findOne({_id: id});
+
+		if (result === null) {
+			throw new Error(`Cannot find user with id - ${id}`);
+		} else {
+			return result;
+		}
 	};
 
-	find = async () => {
-		throw new Error('Not implemented');
-	};
+	find = async () => this.User.find();
 
-	delete = async () => {
-		throw new Error('Not implemented');
+	findByEmail = async (email: string) => this.User.findOne({email});
+
+	findByPhone = async (phone: string) => this.User.findOne({homePhone: phone});
+
+	delete = async (id: string) => {
+		const result = await this.User.deleteOne({_id: id});
+
+		return result.deletedCount > 0;
 	};
 }
 
