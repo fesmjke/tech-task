@@ -1,5 +1,5 @@
-import express, { Handler } from 'express';
-import type {Application as ExpressApplication, Router} from 'express';
+import express from 'express';
+import type {Application as ExpressApplication, Router, Handler} from 'express';
 import {infoLogger, morganLogger} from '../logger/logger';
 import bodyParser from 'body-parser';
 
@@ -18,7 +18,7 @@ export class Application {
 		this.express.use('/api', router);
 	}
 
-	attachMiddleware(fn : Handler) {
+	attachMiddleware(fn: Handler) {
 		this.express.use(fn);
 	}
 

@@ -1,5 +1,5 @@
 import {Application} from '../application/Application';
-import { notFound } from '../middleware/not-found.middleware';
+import {notFound} from '../middleware/not-found.middleware';
 import UserRouter from '../routers/UserRouter';
 
 export const createServer = (port: string) => {
