@@ -13,12 +13,16 @@ export class Application {
 	}
 
 	attachRouter(router: Router) {
-		this.express.use(router);
+		this.express.use('/api',router);
 	}
 
 	async start() {
 		this.express.listen(this.port, () => {
 			console.log(`[server]: Server is running at https://localhost:${this.port}`);
 		});
+	}
+
+	getApp() {
+		return this.express;
 	}
 }
