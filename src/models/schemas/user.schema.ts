@@ -1,5 +1,6 @@
 import type {IUser} from '../../types/IUser';
 import {Schema} from 'mongoose';
+import {generateNewUserInterests as interest} from '../../helpers/user-interests';
 
 const userSchema = new Schema<IUser>({
 	firstName: {
@@ -39,8 +40,21 @@ const userSchema = new Schema<IUser>({
 		type: Boolean,
 		default: false,
 	},
-}, {versionKey: false, timestamps: false}).pre('save', function (this: IUser, next) {
+}, {versionKey: false, timestamps: false}).pre('save', async function (this: IUser, next) {
 	this.name = this.firstName + ' ' + this.lastName;
+
+	const {isArchived, isBuyer, isSeller, isSpam} = this;
+
+	const currentInterests = {isArchived, isBuyer, isSeller, isSpam};
+
+	const newInterests = await interest(this.interests, currentInterests);
+
+	const mergedInterests = {...currentInterests, ...newInterests};
+
+	this.isArchived = mergedInterests.isArchived;
+	this.isBuyer = mergedInterests.isBuyer;
+	this.isSeller = mergedInterests.isSeller;
+	this.isSpam = mergedInterests.isSpam;
 
 	next();
 });
