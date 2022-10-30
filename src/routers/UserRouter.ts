@@ -1,7 +1,7 @@
-import {Router} from 'express';
+import {Router as rt} from 'express';
 import UserController from '../controllers/UserController';
 
-const router = Router();
+const router = rt();
 
 router.get('/users', UserController.find);
 router.get('/users/:id', UserController.findById);
