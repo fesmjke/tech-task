@@ -24,6 +24,7 @@ describe("/api/users", () => {
 
             expect(responce.statusCode).toBe(200);
         })
+        
         test("shoudld return respond with a 200 status and user object",async () => {
             const responce = await supertest(app).get('/api/users');
 
@@ -38,13 +39,6 @@ describe("/api/users", () => {
             const responce = await supertest(app).get(`/api/users/${id}`);
 
             expect(responce.statusCode).toBe(404);
-        })
-        test("should return a user by id", async () => {
-            const id = "635dad879add6e5e8f187bde";
-            const responce = await supertest(app).get(`/api/users/${id}`);
-
-            expect(responce.statusCode).toBe(200);
-            expect(responce.body).toBeTruthy();
         })
     })
 })
