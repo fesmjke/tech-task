@@ -1,31 +1,22 @@
 import {connect} from 'mongoose';
-import {Application} from './application/Application';
-import UserRouter from './routers/UserRouter';
-import dotenv from 'dotenv';
+import {loadDbConfigAsync} from './config/db.config';
+import {loadServerConfigAsync} from './config/server.config';
+import {dbConnection} from "./utils/connection";
+import {createServer} from "./utils/server";
 
 const main = async () => {
-	dotenv.config();
+	const serverConfig = await loadServerConfigAsync();
+	const dbConfig = await loadDbConfigAsync();
 
-	const config = {
-		server: {
-			port: process.env.PORT ?? '3000',
-		},
-		database: {
-			url: process.env.MONGO_URL ?? 'mongodb://127.0.0.1',
-			port: process.env.MONGO_PORT ?? '27017',
-			app: process.env.MONGO_APP ?? 'tech_task',
-		},
-	};
+	try {
+		await connect(dbConnection(dbConfig.database));
+	} catch (e) {
+		console.log(e);
+	}
 
-	const connection = `${config.database.url}:${config.database.port}/${config.database.app}`;
+	const server = createServer(serverConfig.server.port);
 
-	await connect(connection);
-
-	const app = new Application(config.server.port);
-
-	app.attachRouter(UserRouter);
-
-	await app.start();
+	await server.start();
 };
 
 main().then(() => {
