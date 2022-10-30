@@ -13,7 +13,7 @@ export class Application {
 	}
 
 	attachRouter(router: Router) {
-		this.express.use('/api',router);
+		this.express.use('/api', router);
 	}
 
 	async start() {

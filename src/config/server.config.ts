@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 export const loadServerConfigAsync = async () => {
-    dotenv.config();
+	dotenv.config();
 
 	const config = {
 		server: {
@@ -9,5 +9,5 @@ export const loadServerConfigAsync = async () => {
 		},
 	};
 
-    return config;
-}
+	return config;
+};

@@ -1,8 +1,8 @@
 import {connect} from 'mongoose';
 import {loadDbConfigAsync} from './config/db.config';
 import {loadServerConfigAsync} from './config/server.config';
-import {dbConnection} from "./utils/connection";
-import {createServer} from "./utils/server";
+import {dbConnection} from './utils/connection';
+import {createServer} from './utils/server';
 
 const main = async () => {
 	const serverConfig = await loadServerConfigAsync();
