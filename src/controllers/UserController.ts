@@ -1,5 +1,6 @@
 import type {Request, Response, NextFunction} from 'express';
 import {ValidationError} from 'joi';
+import {errorLogger, infoLogger} from '../logger/logger';
 import type {UserService} from '../services/UserService';
 import {default as userService} from '../services/UserService';
 import {Controller} from '../types/Controller';
@@ -19,6 +20,7 @@ class UserController extends Controller {
 			const users = await this._userService.find();
 			responce.status(200).send(users);
 		} catch (e: any) {
+			errorLogger.error(e.message);
 			responce.status(404).send({error: e.message});
 		}
 	};
@@ -28,8 +30,10 @@ class UserController extends Controller {
 
 		try {
 			const user = await this._userService.findOne(id);
+			infoLogger.info(`Found user with id - ${id}`);
 			responce.status(200).send(user);
 		} catch (e: any) {
+			errorLogger.error(e.message);
 			responce.status(404).send({error: e.message});
 		}
 	};
@@ -42,6 +46,7 @@ class UserController extends Controller {
 		} catch (e: any) {
 			if (e instanceof ValidationError) {
 				const [message] = e.details;
+				errorLogger.error(e.message);
 				responce.status(400).send({error: message.message});
 				next();
 				return;
@@ -50,8 +55,10 @@ class UserController extends Controller {
 
 		try {
 			const created = await this._userService.create(user);
+			infoLogger.info(`Successfully created new user - ${created}`);
 			responce.status(200).send(created);
 		} catch (e: any) {
+			errorLogger.error(e.message);
 			responce.status(400).send({error: e.message});
 		}
 	};
@@ -61,8 +68,10 @@ class UserController extends Controller {
 
 		try {
 			await this._userService.delete(id);
+			infoLogger.info(`Successfully deleted user with id - ${id}`);
 			responce.status(200).send(`Successfully deleted user with id ${id}`);
 		} catch (e: any) {
+			errorLogger.error(e.message);
 			responce.status(400).send({error: e.message});
 		}
 	};
