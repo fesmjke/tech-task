@@ -1,5 +1,6 @@
-import express from 'express';
+import express, { Handler } from 'express';
 import type {Application as ExpressApplication, Router} from 'express';
+import {infoLogger, morganLogger} from '../logger/logger';
 import bodyParser from 'body-parser';
 
 export class Application {
@@ -9,6 +10,7 @@ export class Application {
 	constructor(port: string) {
 		this.express = express();
 		this.express.use(bodyParser.json());
+		this.express.use(morganLogger);
 		this.port = port;
 	}
 
@@ -16,9 +18,13 @@ export class Application {
 		this.express.use('/api', router);
 	}
 
+	attachMiddleware(fn : Handler) {
+		this.express.use(fn);
+	}
+
 	async start() {
 		this.express.listen(this.port, () => {
-			console.log(`[server]: Server is running at https://localhost:${this.port}`);
+			infoLogger.info(`[server]: Server is running at https://localhost:${this.port}`);
 		});
 	}
 
