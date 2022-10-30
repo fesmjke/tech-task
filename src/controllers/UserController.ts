@@ -14,7 +14,7 @@ class UserController extends Controller {
 		this._userService = service;
 	}
 
-	find = async (request: Request, responce: Response, next: NextFunction) => {
+	find = async (_request: Request, responce: Response, _next: NextFunction) => {
 		try {
 			const users = await this._userService.find();
 			responce.status(200).send(users);
@@ -23,7 +23,7 @@ class UserController extends Controller {
 		}
 	};
 
-	findById = async (request: Request, responce: Response, next: NextFunction) => {
+	findById = async (request: Request, responce: Response, _next: NextFunction) => {
 		const {id} = request.params;
 
 		try {
@@ -56,7 +56,7 @@ class UserController extends Controller {
 		}
 	};
 
-	delete = async (request: Request, responce: Response, next: NextFunction) => {
+	delete = async (request: Request, responce: Response, _next: NextFunction) => {
 		const {id} = request.params;
 
 		try {
