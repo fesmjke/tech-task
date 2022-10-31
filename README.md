@@ -11,11 +11,6 @@
 
 ## Usage
 
-Setup mongo database using Docker 
-```
-docker run --rm -p 27017:27017 --name mongo-db -d mongo
-```
-
 Download
 ```
 git clone https://github.com/fesmjke/tech-task.git
@@ -31,6 +26,18 @@ npm run build
 Run application
 ```
 npm run start
+```
+
+Setup mongo database using Docker  (local)
+```
+docker run --rm -p 27017:27017 --name mongo-db -d mongo
+```
+
+OR
+
+Use docker-compose file
+```
+docker-compose up
 ```
 
 ## Tasks 
