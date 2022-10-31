@@ -1,0 +1,23 @@
+services:
+  tech-app:
+    container_name: tech-app
+    image: tech-app
+    build: .
+    ports:
+      - 3000:3000
+    networks:
+      - tech-app-net
+    environment:
+      - MONGO_URL=mongodb://mongo
+    links:
+      - mongo
+  mongo:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - tech-app-net
+networks:
+  tech-app-net:
+    driver: bridge
